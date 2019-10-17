@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template xml:space="preserve">
+    <t t-name="PresenceIndicator">
+        <div class="oe_hr_attendance_status fa fa-user">
+        </div>
+    </t>
+
+    <t t-name="MachineKioskModeStart">
+        <div class="o_hr_attendance_kiosk_mode_container">
+            <div class="o_hr_attendance_kiosk_mode">
+                <h1>Welcome to <t t-esc="widget.company_name"/></h1>
+                <img t-attf-src="{{widget.company_image_url}}" alt="Company Logo"/>
+                <h2>Scan your badge</h2>
+                <h4>or</h4>
+                <t t-if="widget.estart">
+                    <button class="o_machine_botton_end_work btn btn-primary btn-lg">End Work</button>
+                </t>
+                <t t-else=" ">
+                    <button class="o_machine_botton_start_work btn btn-primary btn-lg">Start Work</button>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</template>

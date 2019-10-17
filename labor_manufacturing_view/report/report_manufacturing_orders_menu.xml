@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="paperformat_report" model="report.paperformat">
+            <field name="name">Manufacturing Orders Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">50</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_manufacturing_orders_menu"
+                string="Manufacturing Orders"
+                model="labor.mrp"
+                report_type="qweb-pdf"
+                file="labor_manufacturing_view.report_labor_profile"
+                name="labor_manufacturing_view.report_labor_profile"
+                paperformat="paperformat_report"
+        />
+    </data>
+</odoo>

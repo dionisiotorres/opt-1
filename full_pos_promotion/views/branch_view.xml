@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_branch_inherited_for_pos" model="ir.ui.view">
+            <field name="name">Branch Inherited for POS Pin</field>
+            <field name="model">res.branch</field>
+            <field name="inherit_id" ref="branch.view_res_branch_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group/field[@name='telephone_no']" position="after">
+                    <field name='approver_id'/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_users_inherit_for_promo_pin" model="ir.ui.view">
+            <field name="name">res.users.inherit.for.pos.promo.pin</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="point_of_sale.res_users_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page/group/field[@name='pos_security_pin']" position="after">
+                    <field name='promotion_pin'/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_users_tree_inherit_for_promo_pin" model="ir.ui.view">
+            <field name="name">res.users.inherit.tree.for.pos.promo.pin</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='login_date']" position="after">
+                    <field name='promotion_pin'/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_users_simplifier_for_inherit_for_pp" model="ir.ui.view">
+            <field name="name">res.users.simplified.form.inherit.for.pp</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/field[@name='fax']" position="after">
+                    <field name='promotion_pin'/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

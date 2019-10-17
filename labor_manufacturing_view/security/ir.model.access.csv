@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_labor_mrp,access_labor_mrp,model_labor_mrp,mrp.group_mrp_user,1,0,0,0
+access_employee_department,access_employee_department,model_employee_department,mrp.group_mrp_user,1,0,0,0
+access_machine_management,access_machine_management,model_machine_management,mrp.group_mrp_user,1,1,0,0
+access_product_consume,access_product_consume,model_product_consume,mrp.group_mrp_user,1,0,0,0
+access_mrp_workcenter_productivity,access_mrp_workcenter_productivity,model_mrp_workcenter_productivity,mrp.group_mrp_user,1,0,0,0
+access_mrp_message_mrp_user,mrp.message,mrp.model_mrp_message,mrp.group_mrp_user,1,1,1,0
+mrp.access_mrp_workorder_mrp_user,mrp.mrp.workorder.user,mrp.model_mrp_workorder,mrp.group_mrp_user,1,1,0,0
+stock.access_product_product_stock_user,product_product_stock_user,product.model_product_product,stock.group_stock_user,1,1,0,0
+stock.access_product_template_stock_user,product_template_stock_user,product.model_product_template,stock.group_stock_user,1,1,0,0
+acs_machine_assigned_employee,acs_machine_assigned_employee,model_machine_assigned_employee,mrp.group_mrp_user,1,1,1,1

@@ -1,0 +1,164 @@
+<odoo>
+    <data>
+        <!--Form View for My pages  -->
+        <!--<record id="view_labor_mypages_form" model="ir.ui.view">
+            <field name="name">labor.mypages.form</field>
+            <field name="model">my.pages</field>
+            <field name="arch" type="xml">
+                <form string="MyPages">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="department"/>
+                                <field name="mo_no"/>
+                            </group>
+                            <group>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="operation"/>
+                                <field name="workcenter"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>-->
+
+        <!--Tree View for My pages  -->
+        <!--<record id="labor_mypages_tree_view" model="ir.ui.view">
+            <field name="name">labor.mypages.tree</field>
+            <field name="model">my.pages</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="department"/>
+                    <field name="mo_no"/>
+                    <field name="check_in"/>
+                    <field name="check_out"/>
+                    <field name="operation"/>
+                    <field name="workcenter"/>
+                </tree>
+            </field>
+        </record>-->
+
+        <!--Action View for My pages  -->
+        <!--<record model="ir.actions.act_window" id="labor_mypages_act_window">
+            <field name="name">Labor MyPages</field>
+            <field name="res_model">my.pages</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>-->
+
+        <!--Menu for My pages  -->
+        <!--<menuitem id="labor_mypages_menu_id" parent="labor_id" sequence="2" name="My Pages"
+               action="labor_mypages_act_window"/>-->
+
+
+        <!--Form View for Labor pages  -->
+        <!--<record id="view_labor_pages_form" model="ir.ui.view">
+            <field name="name">labor.pages.form</field>
+            <field name="model">labor.pages</field>
+            <field name="arch" type="xml">
+                <form string="MyPages">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="department"/>
+                                <field name="mo_no"/>
+                                <field name="role"/>
+                            </group>
+                            <group>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="operation"/>
+                                <field name="workcenter"/>
+                                <field name="working_time"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>-->
+
+        <!--Tree View for Labor pages  -->
+        <!--<record id="labor_pages_tree_view" model="ir.ui.view">
+            <field name="name">labor.pages.tree</field>
+            <field name="model">labor.pages</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="mo_no == False">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="department"/>
+                    <field name="mo_no"/>
+                    <field name="role"/>
+                    <field name="check_in"/>
+                    <field name="check_out"/>
+                    <field name="operation"/>
+                    <field name="workcenter"/>
+                    <field name="working_time"/>
+                </tree>
+            </field>
+        </record>-->
+
+        <record id="view_labor_pages_tree_new" model="ir.ui.view">
+            <field name="name">labor.pages.tree</field>
+            <field name="model">labor.mrp</field>
+            <field name="arch" type="xml">
+                <tree string="Profile" create="false" delete="false">
+                    <field name="employee_id"/>
+                    <field name="mo_number"/>
+                    <field name="check_in"/>
+                    <field name="check_out"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Action View for Labor pages  -->
+        <record model="ir.actions.act_window" id="labor_pages_act_window">
+            <field name="name">Labor Pages</field>
+            <field name="res_model">labor.mrp</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_labor_pages_tree_new"/>
+            <field name="domain">[('mo_number', '!=', False)]</field>
+        </record>
+
+        <!--Menu for Labor pages  -->
+        <menuitem id="labor_pages_menu_id" parent="labor_id" sequence="3" name="Labor Pages"
+                  action="labor_pages_act_window" groups="mrp.group_mrp_manager"/>
+
+        <!--Form View for Employee for Boolean field Assigned  -->
+        <record id="hr_employee_inherit_form_view_custom" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.custom</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='public']/group[1]/group[1]/field[@name='work_phone']" position="after">
+                    <field name="is_assign_emp" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Put Button on Profile to Checkin and Check Out time -->
+        <record id="view_labor_mrp_form_custom" model="ir.ui.view">
+            <field name="name">labor.mrp.form.custom</field>
+            <field name="model">labor.mrp</field>
+            <field name="inherit_id" ref="labor_manufacturing_view.view_labor_mrp_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/sheet/field[@name='image']" position="after">
+                    <div class="oe_right oe_button_box">
+
+                        <button name="check_in_out" string="Check Out" type="object" class="oe_highlight"/>
+
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

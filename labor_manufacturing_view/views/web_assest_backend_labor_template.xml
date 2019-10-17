@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="labor_manufacturing assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/labor_manufacturing_view/static/src/js/machine_management_time.js"></script>
+            <script type="text/javascript" src="/labor_manufacturing_view/static/src/js/labor_manufacturing.js"></script>
+            <script type="text/javascript" src="/labor_manufacturing_view/static/src/js/machine_kiosk_mode.js"></script>
+        </xpath>
+    </template>
+</odoo>

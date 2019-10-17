@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="promotion_button">
+        <t t-jquery="button" t-operation="replace">
+        </t>
+    </t>
+
+    <t t-name="full_promotion_button">
+        <button class="control-button btn btn-default btn-fill btn-wd"><i class="pe-7s-check"/>
+            Manual apply Promotion</button>
+    </t>
+
+    <!--default auto_promotion_button replaced with auto_promotion_button_new for manage new added types start-->
+    <t t-extend="auto_promotion_button">
+        <t t-jquery="button" t-operation="replace">
+        </t>
+    </t>
+
+    <t t-name="auto_promotion_button_new">
+        <button class="control-button btn btn-default btn-fill btn-wd auto-promotion-new"><i class="pe-7s-repeat"/>
+            Auto Promotion</button>
+    </t>
+    <!--End-->
+
+
+    <t t-name="list_of_promo">
+        <t t-if="promotions">
+            <t t-foreach="promotions" t-as="promotion">
+                <span class='product promotion-line' t-att-data-id="promotion.id">
+                    <div class="product-img">
+                        <img src="/pos_promotion/static/description/promotion.png"/>
+                    </div>
+                    <div class="product-name">
+                        <t t-esc="promotion.name"/>
+                    </div>
+                </span>
+            </t>
+        </t>
+    </t>
+
+    <t t-name="full_promotion_popup">
+            <div class="modal-dialog">
+                <div class="popup">
+                    <p class="title">Choice a Promotion</p>
+                    <div class="product-list-scroller touch-scrollable" style="height:75%;overflow-y: auto;">
+                        <div class="product-list" id="promotions_list">
+
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="button remove_promotion confirm" stype="float:left">
+                            <i class="pe-7s-trash"/>
+                            Remove
+                        </div>
+                        <div class="button cancel" stype="float:right">
+                            <i class="pe-7s-close"/>
+                            Cancel
+                        </div>
+                        <t t-if="widget.pos.auto_promotion">
+                            <div class="button done confirm" stype="float:left">
+                                <i class="pe-7s-check"/>
+                                Done
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+    </t>
+    <!-- list of free products for by products free products start-->
+    <t t-name="list_of_free_product">
+        <div id="free" class="modal-dialog">
+            <div class="popup">
+                <p class="title">List Of Free Product</p>
+                <div class="product-list-selected-scroller touch-scrollable" style="height:75%;overflow-y: auto;">
+                    <div class="product-list-selected" id="promotions_list_selected">
+                            
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <div class="button free_prod_app confirm" stype="float:left">
+                        <i class="pe-7s-check"/>
+                        Apply
+                    </div>
+                    <div class="button cancel" stype="float:right">
+                        <i class="pe-7s-close"/>
+                        Close
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="list_of_free_products">
+        <t t-if="products">
+            <t t-foreach="products" t-as="product">
+                <span class='product free_pro' t-att-data-id="product.product_id[0]">
+                    <!--div class="product-img">
+                        <img src="/pos_promotion/static/description/promotion.png" />
+                    </div-->
+                    <div id="avail" class="product-name" t-att-data-qty="max_qty">
+                        <t t-esc="product_id[1]"/> /
+                        Avail Max: <t t-esc="max_qty"/>
+                    </div>
+                    <div>
+                        Qty: <input type="number" id="max" style="width:50%;"></input>
+                    </div>
+                </span>
+            </t>
+        </t>
+    </t>
+
+    <t t-name="customer_opt_validation">
+        <div id="free" class="modal-dialog">
+            <div class="popup">
+                <p class="title">Customer OTP</p>
+                <div class="product-list-selected-scroller touch-scrollable" style="height:75%;overflow-y: auto;">
+                    <div>
+                        Enter OTP: <input type="number" id="client_otp" style="width:50%; margin-top:20px;"></input>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <div class="button otp_apply confirm" stype="float:left">
+                        <i class="pe-7s-check"/>
+                        Apply
+                    </div>
+                    <div class="button cancel" stype="float:right">
+                        <i class="pe-7s-close"/>
+                        Close
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Auto Promotion pin validation template-->
+    <t t-name="auto_pin_validation">
+        <div id="free" class="modal-dialog">
+            <div class="popup">
+                <p class="title">Enter POS Pin</p>
+                <div>
+                    <div>
+                        Enter Pin: <input type="number" id="auto_pin" style="width:50%; margin-top:20px;"></input>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="button auto_pin_apply confirm" stype="float:left">
+                        <i class="pe-7s-check"/>
+                        Apply
+                    </div>
+                    <div class="button cancel" stype="float:right">
+                        <i class="pe-7s-close"/>
+                        Close
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!--End-->
+    <!--For by flexible product free product start
+    <t t-name="list_of_free_product_flexi">
+        <div id="flexi" class="modal-dialog">
+            <div class="popup">
+                <p class="title">List Of Free Product Flexible</p>
+                <div class="product-list-selected-flexi-scroller touch-scrollable" style="height:75%;overflow-y: auto;">
+                    <div class="product-list-selected-flexi" id="promotions_list_selected_flexi">
+
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <div class="button free_prod_app_flexi confirm" stype="float:left">
+                        <i class="pe-7s-check"/>
+                        Apply
+                    </div>
+                    <div class="button cancel" stype="float:right">
+                        <i class="pe-7s-close"/>
+                        Close
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="list_of_free_products_flexi">
+        <t t-if="products">
+            <t t-foreach="products" t-as="product">
+                <span class='product free_pro_flexi' t-att-data-id="product.product_id[0]">
+                    
+                    <div class="product-name">
+                        <t t-esc="product_id[1]"/>
+                    </div>
+                </span>
+            </t>
+        </t>
+    </t>-->
+    <!--End-->
+
+</templates>

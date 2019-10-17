@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="hr_labour_employee" model="ir.rule">
+	        <field name="name">Labour Employee</field>
+	        <field name="model_id" ref="model_hr_employee"/>
+	        <field name="groups_id" eval="[(4,[ref('mrp.group_mrp_user')])]"/>
+	        <field name="perm_read" eval="True"/>
+	        <field name="domain_force">[('user_id','=',user.id)]</field>
+	    </record>
+	</data>
+</odoo>

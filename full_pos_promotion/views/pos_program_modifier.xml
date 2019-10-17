@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_promotion_form_inherit_for_full_pos_promotion" model="ir.ui.view">
+        <field name="name">POS Promotion</field>
+        <field name="model">pos.promotion</field>
+        <field name="inherit_id" ref="pos_promotion.pos_promotion_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div/h1/field[@name='name']" position="attributes">
+                    <attribute name="style">text-transform:uppercase</attribute>
+            </xpath>
+			<xpath expr="//form/sheet/group[6]" position="attributes">
+                    <attribute name="string">Products will discount</attribute>
+            </xpath>
+            <xpath expr="//form/sheet/group/group/field[@name='active']" position="after">
+                <field name='discount_type' attrs="{'invisible': [('type', 'in', ('9_product_product_pos','5_pack_free_gift','6_price_filter_quantity',False,'10_free_x_from_group_of_product'))]}"/>
+            </xpath>
+			
+            <xpath expr="//form/sheet/group[2]" position="after">
+                    <group string="Discount By Brand"
+                        attrs="{'invisible': [('type', '!=', '8_brand_product_pos')], 'required': [('type', '=', '8_brand_product_pos')]}">
+                        <field name="brand_discount_ids" nolabel="1">
+                            <tree string="Brands" editable="1">
+                                <field name="brand_ids" widget='many2many_tags' class="oe_inline"/>
+                                <field name="discount" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Products"
+                        attrs="{'invisible': [('type', '!=', '9_product_product_pos')], 'required': [('type', '=', '9_product_product_pos')]}">
+                        <field name="product_product_ids" nolabel="1">
+                            <tree string="Products" editable="1">
+                                <field name="product_id" />
+                                <field name="minimum_quantity" />
+                            </tree>
+                        </field>
+                        <group>
+                            <field name="qty_free" />
+                        </group>
+                    </group>
+                    <group string="List of free product"
+                        attrs="{'invisible': [('type', '!=', '9_product_product_pos')], 'required': [('type', '=', '9_product_product_pos')]}">
+                        <field name="product_free_ids" nolabel="1">
+                            <tree string="Free Products" editable="1">
+                                <field name="product_id"/>
+                                <!--new added as per REQ 228-->
+                                <field name="max_qty"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <!--group string="Products"
+                        attrs="{'invisible': [('type', '!=', '11_flexible_buy_products_free_products')], 'required': [('type', '=', '11_flexible_buy_products_free_products')]}">
+                        <field name="flexi_product_ids" nolabel="1">
+                            <tree string="Products" editable="1">
+                                <field name="product_id" />
+                                <field name="minimum_quantity" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="List of flexible products"
+                            attrs="{'invisible': [('type', '!=', '11_flexible_buy_products_free_products')], 'required': [('type', '=', '11_flexible_buy_products_free_products')]}">
+                            <field name="fl_pt_ids" nolabel="1">
+                                <tree string="Products" editable="1">
+                                    <field name="product_id" />
+                                </tree>
+                            </field>
+                    </group-->
+            </xpath>
+            <xpath expr="//form/sheet/group[last()]" position="after">
+                <group string="Free x from group of products"
+                           attrs="{'invisible': [('type', '!=', '10_free_x_from_group_of_product')], 'required': [('type', '=', '10_free_x_from_group_of_product')]}">
+                        <field name="group_of_products_ids" nolabel="1">
+                            <tree string="Free x from group of products" editable="1">
+                                <field name="product_id" widget='many2many_tags'/>
+                                <field name="no_of_product"/>
+                                <field name="to_pay"/>
+                                <field name="min_qty"/>
+                                <field name="min_amount"/>
+                            </tree>
+                        </field>
+                </group>
+            </xpath>
+	        <xpath expr="//form/sheet/group/group/field[@name='end_date']" position="after">
+                <field name='is_payment_mehod'/>
+                <field name='payment_method_id' widget='many2many_tags'  attrs="{'invisible': [('is_payment_mehod', '=', False)], 'required': [('is_payment_mehod', '=', True)]}"/>
+                <field name='stackable_in_promotion'/>
+                <field name='otp_validation'/>
+                <!--<field name='total_price_filter_by_qty' attrs="{'invisible': [('type', 'in', ('2_discount_category', '1_discount_total_order', False))]}"/>-->
+                <field name='dm_free_gifts' attrs="{'invisible': [('type', 'not in', ['9_product_product_pos'])]}"/>
+            </xpath>
+			<!-- for minimal amount-->
+			<xpath expr="//form/sheet/group/group/field[@name='pos_configs']" position="after">
+                <field name='prior_seq_no'/>
+        		<field name='min_amt' attrs="{'invisible': [('type', 'in', ['10_free_x_from_group_of_product', '1_discount_total_order'])]}"/>
+                <!--attrs="{'invisible': [('type', 'not in', ['9_product_product_pos'])]}"-->
+                <field name='max_disc_amt' attrs="{'invisible': [('type', 'in', ['10_free_x_from_group_of_product', '9_product_product_pos', '5_pack_free_gift'])]}"/>
+                <field name='brand_id' attrs="{'invisible': [('type', 'in', ['8_brand_product_pos'])]}" />
+                <!--widget='many2many_tags'-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_pos_promotion_tree_inherit_for_full_pos_promotion" model="ir.ui.view">
+        <field name="name">POS Promotion Tree View</field>
+        <field name="model">pos.promotion</field>
+        <field name="inherit_id" ref="pos_promotion.pos_promotion_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='name']" position="before">
+                <field name='prior_seq_no'/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+pos_brand_product_free,pos_brand_product_free,model_pos_brand_product_free,,1,1,1,1
+pos_product_product_condition,pos_product_product_condition,model_pos_product_product_condition,,1,1,1,1
+pos_product_product_free,pos_product_product_free,model_pos_product_product_free,,1,1,1,1
+access_pos_group_of_products,access_pos_group_of_products,model_pos_group_of_products,,1,1,1,1
+access_pos_brand_discount_condition,access_pos_brand_discount_condition,model_pos_brand_discount_condition,,1,1,1,1
+access_customer_otp_data,access_customer_otp_data,model_customer_otp_data,,1,1,1,1
