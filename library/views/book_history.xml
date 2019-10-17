@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+	
+
+		<!-- 		Loan Management Form View -->
+    <record id="view_book_history_form" model="ir.ui.view">
+		        <field name="name">book.history.form</field>
+			<field name="model">book.history</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Book History Detail" version="7.0">
+				   <sheet>
+					    <group colspan="2" col="4">
+						<!--separator string="General stuff" colspan="2"/-->
+					        <field name="name"/>
+						<field name="book_id"/>
+						<field name="student_id"/>
+						<field name="state"/>
+						<!--search>
+					        </search-->
+					
+					<!--notebook colspan="4">
+				            <page string="Description"-->
+					        
+
+				            <!--/page>
+				        </notebook-->
+			                    </group>
+					
+					    	
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+<!--         Customer Tree View -->
+   <record id="view_book_history_tree" model="ir.ui.view">
+            <field name = "name">book.history.tree</field>
+            <field name = "model">book.history</field>
+            <field name="type">tree</field>
+            <field name = "arch" type = "xml">
+                <tree string="Book History Detail">
+                            <field name="name"/>
+			    <field name="book_id"/>
+			    <field name="student_id"/>
+			    <field name="state"/>
+						
+                </tree>
+           </field>
+        </record>
+
+     <!-- Customer Action view -->
+        <record id = "book_history" model="ir.actions.act_window">
+            <field name = "name">Book History Detail</field>
+            <field name = "res_model">book.history</field>
+            <field name = "view_type">form</field>
+            <field name = "view_mode">tree,form</field>
+        </record>
+
+   <!-- menu items for customer -->
+
+  <menuitem action="book_history" id="menu_book_history_details" parent="menu_library_parent" name="Book History"/>
+
+    </data>
+</odoo>
+

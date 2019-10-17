@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+	
+
+		<!-- 		Loan Management Form View -->
+    <record id="view_book_form" model="ir.ui.view">
+		        <field name="name">book.detail.form</field>
+			<field name="model">book.detail</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Book Detail" version="7.0">
+				   <sheet>
+					    <group colspan="2" col="4">
+						<!--separator string="General stuff" colspan="2"/-->
+					        <field name="name"/>
+						<field name="author"/>
+						<field name="price"/>
+						<!--field name="student_id"/-->
+						<!--search>
+					        </search-->
+					
+					<!--notebook colspan="4">
+				            <page string="Description"-->
+					        
+
+				            <!--/page>
+				        </notebook-->
+			                    </group>
+					
+					    <separator string="Book Issue Details" colspan="2"/>
+						<field name="book_ids"/>
+					     <separator string="Student Details" colspan="2"/>
+						<!--field name="partner_ids" widget="many2many_tags"/-->
+						<field name="partner_ids" widget="many2many_kanban"/>
+						<!--field name="partner_ids" widget="many2manyattendee"/-->
+						<!--field name="partner_ids" widget="many2many_checkboxes"/-->	
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+<!--         Customer Tree View -->
+   <record id="view_book_tree" model="ir.ui.view">
+            <field name = "name">book.detail.tree</field>
+            <field name = "model">book.detail</field>
+            <field name="type">tree</field>
+            <field name = "arch" type = "xml">
+                <tree string="Book Detail">
+                            <field name="name" required='1'/>
+			    <field name="author"/>
+			    <field name="price"/>
+			    <!--field name="student_id"/-->
+                </tree>
+           </field>
+        </record>
+
+<!-- page Search view  -->
+        <record id="view_book_detail_filter" model="ir.ui.view">
+            <field name="name">book.detail.search</field>
+            <field name="model">book.detail</field>
+            <field name="arch" type="xml">
+                <search string="Book Detail Search">
+                    	<filter string="Name"  context="{'group_by':'name'}"/>
+			<filter string="Author Name"  context="{'group_by':'author'}"/>
+			<filter string="Price" context="{'group_by':'price'}"/>                    	
+			<field name="name" string="Name" filter_domain="[('name','ilike',self)]"/>
+			<field name="author" filter_domain="[('author','ilike',self)]"/>
+			<field name="price" filter_domain="[('price','ilike',self)]"/>
+	
+		     <group expand="0" string="Group By...">
+                        <filter string="Book Name" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="Author" domain="[]" context="{'group_by':'author_name'}"/>
+                        <filter string="Price" domain="[]" context="{'group_by':'price'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>  
+
+
+     <!-- Customer Action view -->
+        <record id = "book_details" model="ir.actions.act_window">
+            <field name = "name">Book Detail</field>
+            <field name = "res_model">book.detail</field>
+            <field name = "view_type">form</field>
+            <field name = "view_mode">tree,form,search</field>
+        </record>
+
+   <!-- menu items for customer -->
+
+  <menuitem action="book_details" id="menu_book_details" parent="menu_library_parent" name="Book Details"/>
+
+    </data>
+</odoo>
+

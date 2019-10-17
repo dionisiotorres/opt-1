@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+		<!-- 		library Management Form View -->
+    <record id="view_book_return_form" model="ir.ui.view">
+		        <field name="name">book.return.detail.form</field>
+			<field name="model">book.return.detail</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Book Return Detail" version="7.0">
+				   <sheet>
+					    <group colspan="3" col="4">
+						<!--separator string="General stuff" colspan="2"/-->
+						<field name="book_id"/>
+						<field name="name"/>
+						<field name="issue_date"/>
+						<field name="return_date"/>
+						<field name="days"/>
+						<field name="charge"/>
+						<!--search>
+					        </search-->
+
+				<!--		<xpath expr="//h1" position="after">
+                    <field name="tag_ids" widget="many2many_tags" placeholder="Tags..."/>
+                </xpath>-->
+					<!--notebook colspan="4">
+				            <page string="Description"-->
+
+
+				            <!--/page>
+				        </notebook-->
+			                    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+<!--         Customer Tree View -->
+   <record id="view_book_return_tree" model="ir.ui.view">
+            <field name = "name">book.return.detail.tree</field>
+            <field name = "model">book.return.detail</field>
+            <field name="type">tree</field>
+            <field name = "arch" type = "xml">
+                <tree string="Book Return Detail">
+			    <field name="book_id"/>
+			    <field name="issue_date"/>
+			    <field name="return_date"/>
+			    <field name="days"/>
+			    <field name="charge"/>
+                </tree>
+           </field>
+        </record>
+	<!--grantt view -->
+	<record id="view_book_return_gantt_1" model="ir.ui.view">
+		    <field name="name">book.return.detail.gantt</field>
+		    <field name="model">book.return.detail</field>
+		    <field name="arch" type="xml">
+		        <gantt date_stop="return_date" date_start="issue_date" string="Book Return detail">
+
+		        </gantt>
+		    </field>
+        </record>
+
+	<!-- Graph view -->
+          <record id="view_project_task_graph" model="ir.ui.view">
+            <field name="name">book.return.detail.graph</field>
+            <field name="model">book.return.detail</field>
+            <field name="arch" type="xml">
+                <graph string="Book Return Detail" type="bar">
+                    <field name="book_id"/>
+                    <field name="issue_date" operator="+"/>
+                    <field name="return_date" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+
+
+
+
+     <!-- Customer Action view -->
+        <record id = "book_return_details" model="ir.actions.act_window">
+            <field name = "name">Book Return Detail</field>
+            <field name = "res_model">book.return.detail</field>
+            <field name = "view_type">form</field>
+            <field name = "view_mode">tree,form,gantt,graph</field>
+        </record>
+
+   <!-- menu items for customer -->
+
+  <menuitem action="book_return_details" id="menu_book_return_details" parent="menu_library_parent" name="Book Return Details"/>
+
+    </data>
+</odoo>
+

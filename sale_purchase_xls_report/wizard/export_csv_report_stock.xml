@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_export_csv_report_stock_form" model="ir.ui.view">
+            <field name="name">export.csv.report.stock.form</field>
+            <field name="model">export.csv.report.stock</field>
+            <field name="arch" type="xml">
+                <form >
+                    <group>
+                        <b><h4>Click on the report file name to download the CSV file.</h4></b><br/>
+                    </group>
+                    <group>
+                        <field name="excel_file" readonly="1" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                    <footer>
+                      <button string="Close" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="ir_actions_stock_picking_xls_file" model="ir.actions.server">
+            <field name="name">Picking/Delivery Order Xls Report</field>
+            <field name="model_id" ref="model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = model.print_delivery_order_xls()</field>
+        </record>
+
+        <record id="id_stock_picking_xls_file" model="ir.values">
+            <field name="model_id" ref="model_stock_picking" />
+            <field name="name">Export Delivery Order Xls</field>
+            <field name="key2">client_action_multi</field>
+            <field eval="'ir.actions.server,%d'%ir_actions_stock_picking_xls_file" name="value"/>
+            <field name="key">action</field>
+            <field name="model">stock.picking</field>
+        </record>
+        
+    </data>
+</odoo>

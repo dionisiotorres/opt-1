@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Reference in menus go to /home/odoo/workspace/odoo-10.0/odoo/addons/hr_payroll/views/hr_payroll_views.xml -->
+
+	<!--        Root Menu -->
+        <menuitem id = "menu_library_root" name="Library Management"/>
+        <menuitem id = "menu_library_parent" parent = "menu_library_root" name="Library Details"/>
+
+		<!-- 		Library Management Form View -->
+    <record id="view_student_form" model="ir.ui.view">
+		<field name="name">student.detail.form</field>
+		<field name="model">student.detail</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Student Detail" version="10.0">
+				<sheet>
+					<group>
+						<field name="img" widget='image' class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+						<group>
+							<!--separator string="General stuff" colspan="2"/-->
+					        <field name="name" required='1'/>
+							<field name="address_id" domain="[('student','=',True)]" context="{'show_address': 1}"/>
+							<field name="gender" widget="radio"/>
+							<field name="dob"/>
+						</group>
+						<group>
+							<field name="active"/>
+							<field name="student"/>
+							<field name="staff"/>
+							<field name="register"/>
+						</group>
+			        </group>
+			        <field name="customer" string="It's also customer"/>
+					<notebook>
+						<page string="Book Issue Details">
+						    <!--separator  colspan="2"/-->
+			                <field name="student_ids" mode="tree">
+	        					<form string="Book issue Detail">
+	        						<group>
+										<field name="student_id" required='1'/>
+									    <field name="book_id"/>
+									    <field name="issue_date"/>
+									    <field name="status"/>
+								    </group>
+	        					</form>
+	        					<tree string="Book issue Detail" editable="bottom">
+	            					<field name="student_id" required='1'/>
+								    <field name="book_id"/>
+								    <field name="issue_date"/>
+								    <field name="status"/>
+	                            </tree>
+
+							</field>
+						</page>
+                        <page string="Note book">
+							<field name="note" widget="html"/>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+<!-- Search view -->
+<record id="view_student_view_filter" model="ir.ui.view">
+            <field name="name">student.detail.list.select</field>
+            <field name="model">student.detail</field>
+            <field name="arch" type="xml">
+                <search string="Search Student">
+                    <field name="name" string="Student Name" />
+                    <field name="address_id" string="Address" />
+                    <filter string="Male" domain="[('gender','=','m')]"/>
+                    <filter string="Female" domain="[('gender','=','f')]"/>
+                    <group string="Group By">
+                        <filter string="Gender" domain="[]" context="{'group_by':'gender'}"/>
+                        <filter string="DOB" domain="[]" context="{'group_by':'dob'}"/>
+                        <!--filter name="customer" string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Order Month" domain="[]" context="{'group_by':'date_order'}"/-->
+                    </group>
+               </search>
+            </field>
+</record>
+
+<!--         Customer Tree View -->
+   <record id="view_student_tree" model="ir.ui.view">
+            <field name = "name">student.detail.tree</field>
+            <field name = "model">student.detail</field>
+            <field name="type">tree</field>
+            <field name = "arch" type = "xml">
+                <tree string="Student Detail">
+                <field name="name"/>
+			    <field name="address_id"/>
+			    <field name="note"/>
+			    <field name="gender"/>
+		        <field name="dob"/>
+			    <field name="active"/>
+			    <field name="student"/>
+			    <field name="staff"/>
+			    <field name="register"/>
+
+                </tree>
+           </field>
+        </record>
+
+
+
+
+
+     <!-- Customer Action view -->
+        <record id = "student_registration" model="ir.actions.act_window">
+            <field name = "name">Student Detail</field>
+            <field name = "res_model">student.detail</field>
+            <field name = "view_type">form</field>
+            <field name = "view_mode">tree,form</field>
+
+            <!--field name="context">{
+                    'show_address': 1,
+            	}
+            </field -->
+        </record>
+
+   <!-- menu items for customer -->
+
+  <menuitem action="student_registration" id="menu_student_registration" parent="menu_library_parent" name="Member Registration"/>
+
+    </data>
+</odoo>
+

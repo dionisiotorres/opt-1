@@ -1,0 +1,107 @@
+<odoo>
+<record id="multiple_payment_register_form" model="ir.ui.view">
+		<field name="name">payment.process.form</field>
+		<field name="model">payment.process</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="invoice_number" required='1'/>
+							<field name="payment_reason"/>
+						</group>
+						<group>
+							<field name="amount"/>
+							<field name="payment_type"/>
+						</group>
+			        </group>
+			        <group>
+						<group string="Cash Payment" attrs="{'invisible':[('payment_type', '!=', 'cash')]}">
+							<field name="payee_name"/>
+							<field name="receiver_name"/>
+						</group>
+						<group string="TT Payment" attrs="{'invisible': [('payment_type', '!=', 'tt')]}">
+							<field name="company_bank_name"/>
+							<field name="client_bank_name"/>
+							<field name="date_of_tt"/>
+						</group>
+						<group string="Check Payment" attrs="{'invisible': [('payment_type', '!=', 'check')]}">
+							<field name="check_bank_name"/>
+							<field name="check_no"/>
+							<field name="check_date"/>
+							<field name="city_name"/>
+						</group>
+			        </group>
+
+				</sheet>
+				<footer>
+                        <button string='Submit' name="submit_payment" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+			</form>
+		</field>
+	</record>
+
+
+	<act_window id="action_payment_process_confirm"
+            name="Payment Receipt Process"
+            res_model="payment.process"
+            src_model="account.payment"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            key2="client_action_multi"/>
+
+    <!--Account Payment Inherited and add button -->
+    <record id="account_payment_inherit_form" model="ir.ui.view">
+		<field name="name">account.payment.inherit.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+				<button name="payment_receipt_process" class="oe_highlight" string="Payment Receipt Process" type="object"/>
+			</xpath>
+			<xpath expr="//sheet" position="inside">
+				<notebook>
+					<page string="Payment">
+						<group>
+							<field name="payment_reason"/>
+							<field name="payment_amount"/>
+							<field name="payment_process_type"/>
+						</group>
+
+						<group attrs="{'invisible':[('payment_process_type', '!=', 'cash')]}">
+						    <group string="Cash Payment">
+							    <field name="payee_name"/>
+							    <field name="receiver_name"/>
+							</group>
+						</group>
+						<group attrs="{'invisible': [('payment_process_type', '!=', 'tt')]}">
+							<group string="TT Payment">
+							    <field name="company_bank_name"/>
+							    <field name="client_bank_name"/>
+							    <field name="date_of_tt"/>
+							</group>
+						</group>
+						<group attrs="{'invisible': [('payment_process_type', '!=', 'check')]}">
+						    <group string="Check Payment">
+						        <group>
+							        <field name="check_bank_name"/>
+							        <field name="check_no"/>
+							    </group>
+							    <group>
+							        <field name="check_date"/>
+							        <field name="city_name"/>
+							    </group>
+							</group>
+						</group>
+					</page>
+				</notebook>
+			</xpath>
+        </field>
+	</record>
+
+
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="payment_process_report_layout">
+			<!-- Multicompany-->
+			<t t-if="o and 'company_id' in o">
+				<t t-set="company" t-value="o.company_id"></t>
+			</t>
+			<t t-if="not o or not 'company_id' in o">
+				<t t-set="company" t-value="res_company"></t>
+			</t>
+			
+			<t t-foreach="docs" t-as="docs" style="border-width:6px; border-style:outset;">
+				<t t-call="payment_process_report.payment_process_report_layout_header" />
+				<t t-raw="0" />
+				<t t-call="payment_process_report.payment_process_report_layout_footer" />
+				<!-- t t-call="report.external_layout_footer" /-->
+			</t>
+		</template>
+
+		<template id="payment_process_report_layout_header">
+			<div class="header">
+				<t t-foreach="docs" t-as="o">
+					<div class="row col-xs-12">
+						<t t-set="company" t-value="o.partner_id.company_id"/>
+						<table>
+							<tr>
+								<td>
+									<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" 
+								style="width:150px;height:60px;"/>
+								</td>
+								<td>
+									<h3><span style="margin-top:10px;margin-bottom:20px;" t-field="company.name"/></h3>	
+								</td>
+							</tr>
+						</table>
+								
+							
+										
+					</div>
+				</t>
+			</div>
+		
+		</template>
+
+		<template id="payment_process_report_layout_footer">
+			<div class="footer">
+				<div class="row col-xs-12">
+					<div class="row col-xs-4"><center><span style="color: F61D00;">Signature :‫‬</span></center></div>
+					<div class="row col-xs-5"></div>
+					<div class="row col-xs-4 pull-right"><center><span>(User Name) ‫‬</span></center></div>
+				</div>
+				<br/>
+				<br/><br/><br/><br/><!-- border-top: 1px double black;border-width:6px;  -->
+				<div class="row" style=" border-top-style:double; border-color :black; border-width: 4px;">
+					<div class="col-xs-12" style="font-size:10px;margin-top:10px;">
+						<center>
+							<p><span style=" border-bottom: 1px solid #3F86CE;">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+							  ‬</span> Location  | <span t-field="company.vat"/> Tax | <span t-field="company.phone"/> Phone </p> 
+						</center>
+					</div>
+				</div>
+			</div>
+		</template>
+	</data>
+</openerp>

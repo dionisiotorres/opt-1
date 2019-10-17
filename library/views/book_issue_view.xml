@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+		<!-- 		Loan Management Form View -->
+    <record id="view_book_issue_form" model="ir.ui.view">
+		        <field name="name">book.issue.detail.form</field>
+			<field name="model">book.issue.detail</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Book Issue Detail" version="7.0">
+				   <sheet>
+					    <group colspan="2" col="4">
+						<!--separator string="General stuff" colspan="2"/-->
+					        <field name="student_id" required='1'/>
+						<field name="book_id"/>
+						<field name="issue_date"/>
+						<field name="status"/>
+						<!--search>
+					        </search-->
+
+				<!--		<xpath expr="//h1" position="after">
+                    <field name="tag_ids" widget="many2many_tags" placeholder="Tags..."/>
+                </xpath>-->
+					<!--notebook colspan="4">
+				            <page string="Description"-->
+
+
+				            <!--/page>
+				        </notebook-->
+			                    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+<!--         Customer Tree View -->
+   <record id="view_book_issue_tree" model="ir.ui.view">
+            <field name = "name">book.issue.detail.tree</field>
+            <field name = "model">book.issue.detail</field>
+            <field name="type">tree</field>
+            <field name = "arch" type = "xml">
+                <tree string="Book Issue Detail">
+                <field name="student_id" required='1'/>
+			    <field name="book_id"/>
+			    <field name="issue_date"/>
+			    <field name="status"/>
+                </tree>
+           </field>
+        </record>
+<!-- Calander view -->
+<record id="view_book_issue_calendar_new" model="ir.ui.view">
+            <field name="name">book.issue.detail.calendar</field>
+            <field name="model">book.issue.detail</field>
+            <!--<field eval="2" name="priority"/> -->
+            <field name="arch" type="xml">
+                <calendar color="student_id" date_start="issue_date" string="Book Detail">
+                    <field name="student_id"/>
+			<field name="book_id"/>
+
+			<field name="status"/>
+
+                </calendar>
+            </field>
+        </record>
+
+     <!-- Customer Action view -->
+        <record id = "book_issue_details" model="ir.actions.act_window">
+            <field name = "name">Book Issue Detail</field>
+            <field name = "res_model">book.issue.detail</field>
+            <field name = "view_type">form</field>
+            <field name = "view_mode">tree,form,calendar</field>
+        </record>
+
+   <!-- menu items for customer -->
+
+  <menuitem action="book_issue_details" id="menu_book_issue_details" parent="menu_library_parent" name="Book Issue Details"/>
+
+    </data>
+</odoo>
+

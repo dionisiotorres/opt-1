@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="payment_process_report_tmp_id">
+			 <t t-call="payment_process_report.payment_process_report_layout">
+             <!--if u want to default header and footer then code is below -->
+			 <!--t t-call="report.external_layout"-->
+				<t t-foreach="docs" t-as="o">
+					<div class="page">
+						<center><b><h3>Payment Receipt</h3></b>
+						<br/><br/>
+						<table class="table table-bordered col-xs-12">
+							<thead>
+							    <!--tr style="background-color: #A5A5A5; color: FFFFFF;text-align:center;">
+									<td>‫المرجع/‫الفاتورة‬ ‬</td>
+									<td>‫المبلغ‬ </td>
+									<td>‫التاريخ‬ </td>
+									<td><b>‫رقم‬</b>
+									<b>‫السند‬</b></td>
+								</tr-->
+								<tr style="background-color: #EDEDED; color: F61D00;text-align:center;">
+									<td>Invoice No.</td>
+									<td>Amount</td>
+									<td>Payment Date</td>
+									<td><b>Payment No</b></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr style="text-align:center;">
+									<td><span t-field="o.communication"></span></td>
+									<td><span t-field="o.amount"/></td>
+									<td><span t-field="o.payment_date"/></td>
+									<td><span t-field="o.name"/></td>
+								</tr>
+							</tbody>
+						</table>
+						<t t-foreach="get_payment_lines" t-as="line" >
+							<div>
+							<table class="table table-bordered col-xs-12">
+								<thead>
+								    <!--tr style="background-color: #A5A5A5; color: FFFFFF;text-align:center;">
+										<td> ‫مبلغ‬ ‫وقدرة‬ ‫كتابة‬ </td>
+										<td>‫وذلك‬ ‫نظير‬ </td>
+										<td>‫استلمنا‬ ‫من‬ ‫العميل‬</td>
+									</tr-->
+									<tr style="background-color: #EDEDED; color: F61D00;text-align:center;">
+										<td>Amount in writing</td>
+										<td>Reason for this payment</td>
+										<td>Client Name</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr style="text-align:center;" >
+										<td><span t-esc="line.get('amount')" t-options='{"widget": "monetary", "display_currency": o.currency_id}'></span></td>
+										<td><span t-esc="line.get('payment_reason')"/></td>
+										<td><span t-esc="line.get('client_name')"/></td>
+									</tr>
+									<br/>
+								</tbody>
+							</table>
+							</div>
+							<div>
+							<span t-if="line.get('receiver_name') or line.get('payee_name')">
+								<table  class=" table table-bordered col-xs-12">
+								    <!--tr style="background-color: #A5A5A5; color: FFFFFF;text-align:center;">
+										<td>‫توقيع‬  ‫المستلم‬ </td>
+										<td>‫اسم‬  ‫المستلم‬</td>
+										<td>‫اسم‬ ‫مسلم‬ ‫المبلغ‬</td>
+									</tr-->
+									<tr style="background-color: #EDEDED; color: F61D00;text-align:center;">
+										<td>Signature</td>
+										<td>Receiver Name</td>
+										<td>Payee Name</td>
+									</tr>
+									<tr style="text-align:center;">
+										<td></td>
+										<td><span t-esc="line.get('receiver_name')"/></td>
+										<td><span t-esc="line.get('payee_name')"/></td>
+									</tr>
+								</table>
+								
+							</span>
+							<span t-if="line.get('date_of_tt') or line.get('client_bank_name') or line.get('company_bank_name')">
+								<table  class=" table table-bordered col-xs-12">
+								    <!--tr style="background-color: #A5A5A5; color: FFFFFF;text-align:center;">
+										<td>‫تاريخ‬ ‫التحويل‬</td>
+										<td>‫البنك‬ ‫المحول‬ ‫منه‬ </td>
+										<td>‫البنك‬ ‫المحول‬ ‫له‬</td>
+										
+									</tr-->
+									<tr style="background-color: #EDEDED; color: F61D00;text-align:center;">
+										<td>Date of TT</td>
+										<td>Client Bank name</td>
+										<td>Company bank name</td>
+										
+									</tr>
+									<tr style="text-align:center;">
+										<td><span t-esc="line.get('date_of_tt')"/></td>
+										<td><span t-esc="line.get('client_bank_name')"/></td>
+										<td><span t-esc="line.get('company_bank_name')"/></td>
+									</tr>
+								</table>
+							</span>
+							<span t-if="line.get('city_name') or line.get('check_date') or line.get('check_no') or line.get('check_bank_name')">
+								<table  class="table table-bordered col-xs-12">
+									<!--tr style="background-color: #A5A5A5; color: FFFFFF;text-align:center;">
+										<td>‫حرر‬ ‫في‬</td>
+										<td>‫تاريخ‬ ‫الشيك‬</td>
+										<td>‫رقم‬ ‫الشيك‬</td>
+										<td>‫البنك‬ ‫المسحوب‬ ‫عليه‬</td>
+									</tr -->
+									<tr style="background-color: #EDEDED; color: F61D00;text-align:center;">
+										<td>Issued city </td>
+										<td>Check Date</td>
+										<td>Check No</td>
+										<td>Check bank name</td>
+									</tr>
+									<tr style="text-align:center;">
+										<td><span t-esc="line.get('city_name')"/></td>
+										<td><span t-esc="line.get('check_date')"/></td>
+										<td><span t-esc="line.get('check_no')"/></td>
+										<td><span t-esc="line.get('check_bank_name')"/></td>
+									</tr>
+								</table>
+							</span>
+							</div>
+						</t>
+						</center>
+					</div>
+				</t>
+				
+			</t>
+		</template>
+
+		<template id="payment_process_report_customization_id">
+		    <t t-call="report.html_container">
+		        <t t-foreach="doc_ids" t-as="doc_id">
+		            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'payment_process_report.payment_process_report_tmp_id')"/>
+		        </t>
+		    </t>
+		</template>
+	</data>
+</openerp>
