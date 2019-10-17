@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_report_pos_order_pivot_ext" model="ir.ui.view">
+        <field name="name">report.pos.order.pivot.ext</field>
+        <field name="model">report.pos.order</field>
+        <field name="arch" type="xml">
+            <pivot string="Point of Sale Analysis" disable_linking="True">
+                <field name="loyalty_program_id" type="row"/>
+                <!--<field name="loyalty_reward_id" type="row"/>-->
+                <field name="points_earned" type="measure"/>
+                <field name="points_used" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+</odoo>

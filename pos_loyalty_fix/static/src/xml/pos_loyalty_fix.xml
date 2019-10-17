@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+   <t t-extend='ClientDetailsEdit'>
+        <t t-jquery='.client-details-left' t-operation='append'>
+            <div class='client-detail'>
+                <span class='label'>Join Date.</span>
+                <input type="date" class='detail client-address-mem_join_date' name='mem_join_date' t-att-value='partner.mem_join_date || ""' placeholder='DD/MM/YYYY'></input>
+            </div>
+            <!-- <div class='client-detail'>
+                <span class='label'>MS No.</span>
+                <input class='detail client-address-mem_no' name='mem_no' t-att-value='partner.test || ""' placeholder='Membership No.'></input>
+            </div> -->
+            <!-- <div class='client-detail'>
+                <span class='label'>MS Name.</span>
+                <input class='detail client-address-mem_name' name='mem_name' t-att-value='partner.mem_name || ""' placeholder='Membership Name.'></input>
+            </div> -->
+            <div class='client-detail'>
+                <span class='label'>Loyalty Applicable</span>
+                <t t-if='partner.reward_applicable'>
+                    <input type="checkbox" name="reward_applicable" class="detail reward_applicable" checked="checked"/>
+                </t>
+                <t t-else=''>
+                    <input type="checkbox" name="reward_applicable" class="detail reward_applicable"/>
+                </t>
+            </div>
+        </t>
+        <t t-jquery='.client-details-right' t-operation='append'>
+            <!-- <div class='client-detail'>
+                <span class='label'>MS Type.</span>
+                <select class='detail client-address-mem_type' name="mem_type" form="carform">
+                    <t t-foreach="partner.eligible_mem_types" t-as="mem_type">
+                        <t t-if="partner.mem_type and mem_type.id == partner.mem_type[0]">
+                            <option selected="selected" t-att-value="mem_type.id"><t t-esc="mem_type.name"/></option>
+                        </t>
+                        <t t-else="">
+                            <option t-att-value="mem_type.id"><t t-esc="mem_type.name"/></option>
+                        </t>
+                    </t>
+                </select>
+            </div> -->
+            <div class='client-detail'>
+                <span class='label'>MS Type.</span>
+                <select class='detail client-address-loyalty_id' name="loyalty_id" form="carform" disabled="disabled">   <!-- -->
+                    <option value=""></option>
+                    <t t-if="partner.applicable_loyalties">
+                        <t t-foreach="partner.applicable_loyalties" t-as="loyalty_id">
+                            <t t-if="partner.loyalty_id and loyalty_id.id == partner.loyalty_id[0]">
+                                <option selected="selected" t-att-value="loyalty_id.id"><t t-esc="loyalty_id.name"/></option>
+                            </t>
+                            <t t-else="">
+                                <option t-att-value="loyalty_id.id"><t t-esc="loyalty_id.name"/></option>
+                            </t>
+                        </t>
+                    </t>
+                </select>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ClientDetails">
+        <t t-jquery=".client-details-box" t-operation="replace">
+            <div class='client-details-box clearfix'>
+                <div class='client-details-left'>
+                    <div class='client-detail'>
+                        <span class='label'>Address:</span>
+                        <t t-if='partner.address'>
+                            <span class='detail client-address'><t t-esc='partner.address' /></span>
+                        </t>
+                        <t t-if='!partner.address'>
+                            <span class='detail client-address empty'>N/A</span>
+                        </t>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Email:</span>
+                        <t t-if='partner.email'>
+                            <span class='detail client-email'><t t-esc='partner.email' /></span>
+                        </t>
+                        <t t-if='!partner.email'>
+                            <span class='detail client-email empty'>N/A</span>
+                        </t>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Phone:</span>
+                        <t t-if='partner.phone'>
+                            <span class='detail client-phone'><t t-esc='partner.phone' /></span>
+                        </t>
+                        <t t-if='!partner.phone'>
+                            <span class='detail client-phone empty'>N/A</span>
+                        </t>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Join Date:</span>
+                        <t t-if='partner.mem_join_date'>
+                            <span class='detail client-mem_join_date'><t t-esc='partner.mem_join_date' /></span>
+                        </t>
+                        <t t-if='!partner.mem_join_date'>
+                            <span class='detail client-mem_join_date empty'>N/A</span>
+                        </t>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Loyalty Applicable:</span>
+                        <t t-if='partner.reward_applicable'>
+                            <input type="checkbox" name="reward_applicable" class="detail reward_applicable" checked="checked"/>
+                        </t>
+                        <t t-else=''>
+                            <input type="checkbox" style="width:34px;" name="reward_applicable" class="detail reward_applicable"/>
+                        </t>
+                    </div>
+                </div>
+                <div class='client-details-right'>
+                    <div class='client-detail'>
+                        <span class='label'>Barcode:</span>
+                        <t t-if='partner.barcode'>
+                            <span class='detail client-id'><t t-esc='partner.barcode'/></span>
+                        </t>
+                        <t t-if='!partner.barcode'>
+                            <span class='detail client-id empty'>N/A</span>
+                        </t>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Tax ID:</span>
+                        <t t-if='partner.vat'>
+                            <span class='detail vat'><t t-esc='partner.vat'/></span>
+                        </t>
+                        <t t-if='!partner.vat'>
+                            <span class='detail vat empty'>N/A</span>
+                        </t>
+                    </div>
+                    <div class='client-detail' id="ms_type_div">
+                        <span class='label'>MS Type:</span>
+                        <t t-if='partner.loyalty_id'>
+                            <span class='detail client-loyalty_id'><t t-esc='partner.loyalty_id[1]' />&amp;nbsp;</span>
+                            <!--Added by GYB-->
+                            <button id="btn_upgrade" class="btn btn-warning" style="background: white;">
+                                <i class="fa fa-chevron-circle-up"/>Upgrade Membership
+                            </button>
+                            <!--//Added by GYB-->
+                        </t>
+                        <t t-if='!partner.loyalty_id'>
+                            <span class='detail client-loyalty_id empty'>N/A &amp;nbsp;</span>
+                            <!--Added by GYB-->
+                            <button id="btn_member" class="btn btn-primary" style="background: white;">
+                                <i class="fa fa-user-circle-o"/>Be a Member
+                            </button>
+                            <!--// Added by GYB-->
+                        </t>
+                    </div>
+                    <!--Added by GYB-->
+                    <div class="client-detail" id="product_data_div" style="display:none;">
+                        <span class='label'>MS Type.</span>
+                        <select class='detail client-address-loyalty_id' name="loyalty_id" form="carform" id="id_product" style="width: auto;">
+                            <!--disabled="disabled"-->
+                            <t t-if="partner.applicable_loyalties">
+                                <t t-foreach="partner.applicable_loyalties" t-as="loyalty_id">
+                                    <t t-if="partner.loyalty_id and loyalty_id.id == partner.loyalty_id[0] and loyalty_id.ic_upg">
+                                        <option selected="selected" t-att-value="loyalty_id.id">
+                                            <t t-esc="loyalty_id.name"/>-<t t-esc="widget.format_currency(loyalty_id.ic_join_cost)"/>
+                                        </option>
+                                    </t>
+                                    <t t-if="!partner.loyalty_id">
+                                        <t t-if="loyalty_id.ic_join">
+                                            <option t-att-value="loyalty_id.id">
+                                                <t t-esc="loyalty_id.name"/>-<t t-esc="widget.format_currency(loyalty_id.ic_join_cost)"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                    <t t-if="partner.loyalty_id">
+                                        <t t-if="loyalty_id.ic_upg">
+                                            <option t-att-value="loyalty_id.id">
+                                                <t t-esc="loyalty_id.name"/>-<t t-esc="widget.format_currency(loyalty_id.ic_join_cost)"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                </t>
+                            </t>
+                        </select>
+                        <button id="ok_member" class="btn btn-primary btn-md" style="background: #6ec89b;color: white;">
+                            <i class="fa fa-check-circle"/>Apply
+                        </button>
+                    </div>
+                    <!--// Added by GYB-->
+                </div>
+            </div>
+        </t>
+        <!--t t-jquery='.client-details-left' t-operation='append'>
+            <div class='client-detail'>
+                <span class='label'>Join Date.</span>
+                <t t-if='partner.mem_join_date'>
+                    <span class='detail client-mem_join_date'><t t-esc='partner.mem_join_date' /></span>
+                </t>
+                <t t-if='!partner.mem_join_date'>
+                    <span class='detail client-mem_join_date empty'>N/A</span>
+                </t>
+            </div>
+            <div class='client-detail'>
+                <span class='label'>Loyalty Applicable</span>
+                <t t-if='partner.reward_applicable'>
+                    <input type="checkbox" name="reward_applicable" class="detail reward_applicable" checked="checked"/>
+                </t>
+                <t t-else=''>
+                    <input type="checkbox" name="reward_applicable" class="detail reward_applicable"/>
+                </t>
+            </div>
+        </t>
+        <t t-jquery='.client-details-right' t-operation='append'>
+            <div class='client-detail'>
+                <span class='label'>MS Type.</span>
+                <t t-if='partner.loyalty_id'>
+                    <span class='detail client-loyalty_id'><t t-esc='partner.loyalty_id[1]' /></span>
+                </t>
+                <t t-if='!partner.loyalty_id'>
+                    <span class='detail client-loyalty_id empty'>N/A</span>
+                </t>
+            </div>
+        </t-->
+    </t>
+</templates>

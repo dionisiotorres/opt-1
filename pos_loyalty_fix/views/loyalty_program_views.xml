@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_loyalty_program_property_form" model="ir.ui.view">
+        <field name="name">loyalty.program.form.inherit</field>
+        <field name="model">loyalty.program</field>
+        <field name="inherit_id" ref="pos_loyalty.view_loyalty_program_form"/>
+        <field name="arch" type="xml">
+            <field name="rounding" position="after">
+                <field name="period"/>
+                <field name="min_points"/>
+                <field name="min_trans"/>
+            </field>
+            <xpath expr="//form/sheet/group[1]" position="after">
+                <group>
+                    <group>
+                        <field name="ic_join" class="oe_inline"/>
+                        <field name="ic_join_product_id" class="oe_inline" attrs="{'invisible':[('ic_join','=',False)], 'required': [('ic_join','=',True)]}"/>
+                        <field name="ic_join_cost" class="oe_inline" attrs="{'invisible':[('ic_join','=',False)], 'required': [('ic_join','=',True)]}"/>
+                    </group>
+                    <group>
+                        <field name="ic_upg" class="oe_inline"/>
+                        <field name="ic_upg_product_id" class="oe_inline" attrs="{'invisible':[('ic_upg','=',False)], 'required': [('ic_upg','=',True)]}"/>
+                        <field name="ic_upg_cost" class="oe_inline" attrs="{'invisible':[('ic_upg','=',False)], 'required': [('ic_upg','=',True)]}"/>
+                    </group>
+                    <group>
+                        <field name="auto_up" class="oe_inline"/>
+                        <field name="auto_up_minimum_points" class="oe_inline" attrs="{'invisible':[('auto_up','=',False)], 'required': [('auto_up','=',True)]}"/>
+                        <field name="auto_up_loyalty_id" class="oe_inline" attrs="{'invisible':[('auto_up','=',False)], 'required': [('auto_up','=',True)]}"/>
+                    </group>
+                    <group>
+                        <field name="auto_down" class="oe_inline"/>
+                        <field name="auto_down_minimum_points" class="oe_inline" attrs="{'invisible':[('auto_down','=',False)], 'required': [('auto_down','=',True)]}"/>
+                        <field name="auto_down_loyalty_id" class="oe_inline" attrs="{'invisible':[('auto_down','=',False)], 'required': [('auto_down','=',True)]}"/>
+                    </group>
+                </group>
+            </xpath>
+
+       <!--      <xpath expr="//field[@name='rule_ids']" position="after">
+                <separator string="History" colspan="4"/>
+                <field name="history_ids" colspan="4" nolabel="1">
+                    <tree string="History">
+                        <field name="mem_no"/>
+                        <field name="mem_name"/>
+                        <field name="mem_join_date"/>
+                        <field name="mem_exp_date"/>
+                        <field name="loyalty_points"/>
+                    </tree>
+                </field>
+            </xpath> -->
+        </field>
+    </record>
+</odoo>

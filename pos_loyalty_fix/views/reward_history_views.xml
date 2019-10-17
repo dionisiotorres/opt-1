@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_reward_history_tree" model="ir.ui.view">
+        <field name="name">reward.history.form</field>
+        <field name="model">reward.history</field>
+        <field name="arch" type="xml">
+            <tree string="Reward History">
+                <field name="partner_id" />
+                <field name="pos_order_id" />
+                <field name="loyalty_id"/>
+                <field name="date_order"/>
+                <!-- <field name="loyalty_points"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_reward_history_form" model="ir.actions.act_window">
+        <field name="name">Reward History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">reward.history</field>
+        <field name="context">{'filter_point_left':True}</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        parent="point_of_sale.menu_point_config_product"
+        action="action_reward_history_form"
+        id="menu_reward_history"
+        sequence="35"
+        groups="point_of_sale.group_pos_manager" />
+
+    <record id="view_pos_mem_type_tree" model="ir.ui.view">
+        <field name="name">pos.mem.type.form</field>
+        <field name="model">pos.mem.type</field>
+        <field name="arch" type="xml">
+            <tree string="Membership Type">
+                <field name="name"/>
+                <field name="period"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_membership_type_form" model="ir.actions.act_window">
+        <field name="name">Membership Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos.mem.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+<!--     <menuitem
+        parent="point_of_sale.menu_point_config_product"
+        action="action_membership_type_form"
+        id="menu_membership_type"
+        sequence="36"
+        groups="point_of_sale.group_pos_manager" /> -->
+
+    <record id="view_loyalty_history_form" model="ir.ui.view">
+        <field name="name">loyalty.history.form</field>
+        <field name="model">loyalty.history</field>
+        <field name="arch" type="xml">
+            <form string="Loyalty History">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="mem_join_date"/>
+                            <field name="mem_exp_date"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="loyalty_points"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_loyalty_history_tree" model="ir.ui.view">
+        <field name="name">loyalty.history.tree</field>
+        <field name="model">loyalty.history</field>
+        <field name="arch" type="xml">
+            <tree string="Loyalty History">
+                <field name="partner_id"/>
+                <!-- <field name="mem_no"/> -->
+                <!-- <field name="mem_name"/> -->
+                <field name="mem_join_date"/>
+                <field name="mem_exp_date"/>
+                <field name="loyalty_points"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_loyalty_history_form" model="ir.actions.act_window">
+        <field name="name">Customer Membership</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">loyalty.history</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        parent="point_of_sale.menu_point_config_product"
+        action="action_loyalty_history_form"
+        id="menu_loyalty_history"
+        sequence="37"
+        groups="point_of_sale.group_pos_manager" />
+
+
+    <menuitem
+        parent="point_of_sale.menu_point_root"
+        action="base.action_partner_form"
+        id="newmenu_customer_pos"
+        sequence="20"
+        groups="point_of_sale.group_pos_manager" />
+</odoo>

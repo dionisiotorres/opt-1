@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">res.partner.pos.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page name="POS Membership" string="POS Membership">
+                    <group>
+                        <group>
+                            <field name="reward_applicable"/>
+                            <field name="loyalty_id" options="{'no_create': True}"/>
+                            <!-- <field name="mem_no"/> -->
+                        </group>
+                        <group>
+                            <!-- <field name="mem_name"/> -->
+                            <field name="mem_join_date"/>
+                            <field name="mem_exp_date"/>
+                            <field name="active_points"/>
+                            <!-- <field name="total_active_points"/> -->
+                        </group>
+                    </group>
+                    <separator string="Reward History" colspan="4"/>
+                    <field name="reward_history_id" colspan="4" nolabel="1" readonly="1">
+                        <tree string="Reward History">
+                            <field name="pos_order_id"/>
+                            <field name="amount"/>
+                            <field name="date_order"/>
+                            <!-- <field name="loyalty_points" sum="Total"/> -->
+                            <field name="points_earned" sum="Total"/>
+                            <field name="points_used"/>
+                            <field name="points_left"/>
+                            <field name="points_expired"/>
+                            <field name="expiry_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//div[@name='button_box']/button[@name='toggle_active']" position="before">
+                    <button class="oe_stat_button" type="object" name="open_pos_order_for_loyalty"
+                        context="{'search_default_partner_id': active_id,'default_partner_id': active_id}"
+                        attrs="{'invisible': ['|', ('customer', '=', False) ]}"
+                        icon="fa-shopping-bag">
+                        <field string="POS Order Line" name="po_loyalty_count" widget="statinfo"/>
+                    </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!--new added fields in pos order for loyalty points-->
+    <record id="view_pos_order_form_inherited_for_loyalty" model="ir.ui.view">
+            <field name="name">pos.order.form.inherit.for.loyalty</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[4]" position="after">
+                    <page name="loyalty_rewards" string="Loyalty Rewards">
+                        <group>
+							<field name="pt_earned"/>
+                            <field name="pt_used"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//form/sheet/group/field[@name='fiscal_position_id']" position="after">
+                    <field name="st_loyalty_pts"/>
+                    <field name="loyalty_id" invisible="1"/> <!--Added by GYB-invisible="1"-->
+                    <field name="end_loyalty_pts"/>
+                </xpath>
+            </field>
+    </record>
+
+
+
+</odoo>

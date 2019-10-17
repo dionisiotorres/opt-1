@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data><!-- noupdate="1" -->
+        <!-- Cron for Auto Upgrade Loyalty Program -->
+        <record model="ir.cron" id="upgrade_loyalty_prog_scheduler">
+            <field name="name">Auto Upgrade Loyalty Program</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field><!-- It's every day -->
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 12:00:00')" />
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'loyalty.program'"/>
+            <field name="function" eval="'_check_loyalty_program_upgrade'"/>
+            <field name="args" eval="'()'"/>
+            <field name="priority" eval="1"/>
+        </record>
+    </data>
+
+</odoo>
